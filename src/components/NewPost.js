@@ -12,36 +12,45 @@ function NewPost({post, setPost, waiting, setWaiting}) {
   function submitHandler(event) {
     event.preventDefault();  
     setWaiting(true);
+
+    console.log(enteredTitle);
   
-  let value = {
+  const value = {
     userId: 1,
-    id: post.length,
-    title: enteredTitle
+    id: 12,
+    title: "name",
+    body: "okay"
   }
 
+  console.log(value)
   setWaiting(true)
 
-  fetch("https://jsonplaceholder.typicode.com/posts",{
-    method: "POST"
+  fetch("https://jsonplaceholder.typicode.com/posts",
+  {
+    method: "POST",
+    Headers: {
+      "Accept": 'application.json',
+      'Content-Type': 'application/json'
+    },
+
+    body: JSON.stringify(value)
   })
   .then(Response=> Response.json())
   .then(
     posts => {setPost([...post,posts])
+      console.log("dfddf")
     setWaiting(false)} 
     
   )
   setEnteredTitle('')
  }
-
-
-
-  return (
+   return (
     <form onSubmit={submitHandler} className={classes.form}>
       <div>
         <label>Title</label>
         <input type="text" onChange={updateTitleHandler} value={enteredTitle} />
       </div>
-      <button>Save</button>
+      <button onClick={submitHandler}>Save</button>
     </form>
   );
   

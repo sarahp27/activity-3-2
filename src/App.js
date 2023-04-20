@@ -15,15 +15,16 @@ function App() {
     .then(post =>{
       setPost(post.slice(0,3))
       setWaiting(false)
-      console.log(post.slice(0,3))
+      console.log({app:post.slice(0,3)})
     })
   },[])
   
   return (
     <>
-
       <NewPost setPost={setPost} post={post} waiting={waiting} setWaiting={setWaiting}/>
-      <BlogPosts  />
+      {
+      post.map((p) => <BlogPosts p={p}/>)
+      }
     </>
   );
 }
