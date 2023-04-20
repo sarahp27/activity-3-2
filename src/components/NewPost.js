@@ -17,9 +17,9 @@ function NewPost({post, setPost, waiting, setWaiting}) {
   
   const value = {
     userId: 1,
-    id: 12,
-    title: "name",
-    body: "okay"
+    id: post.length+1,
+    title: enteredTitle,
+    body: "hello world"
   }
 
   console.log(value)
@@ -28,7 +28,7 @@ function NewPost({post, setPost, waiting, setWaiting}) {
   fetch("https://jsonplaceholder.typicode.com/posts",
   {
     method: "POST",
-    Headers: {
+    headers: {
       "Accept": 'application.json',
       'Content-Type': 'application/json'
     },
@@ -38,13 +38,14 @@ function NewPost({post, setPost, waiting, setWaiting}) {
   .then(Response=> Response.json())
   .then(
     posts => {setPost([...post,posts])
-      console.log("dfddf")
+      console.log("posts")
     setWaiting(false)} 
     
   )
   setEnteredTitle('')
  }
    return (
+    <div className="bg">
     <form onSubmit={submitHandler} className={classes.form}>
       <div>
         <label>Title</label>
@@ -52,6 +53,7 @@ function NewPost({post, setPost, waiting, setWaiting}) {
       </div>
       <button onClick={submitHandler}>Save</button>
     </form>
+    </div>
   );
   
   }

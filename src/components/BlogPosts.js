@@ -6,7 +6,7 @@ function BlogPosts(prop) {
   return (
     <ul className={classes.posts}>
             <li>
-        {prop.p.title}
+        {prop.p.id} {prop.p.title}
       </li>
 
     </ul>);
