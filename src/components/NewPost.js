@@ -1,7 +1,8 @@
 import { useState } from "react";
 import classes from './NewPost.module.css';
 
-function NewPost() {
+
+function NewPost({post, setPost, waiting, setWaiting}) {
   const [enteredTitle, setEnteredTitle] = useState('');
 
   function updateTitleHandler(event) {
@@ -9,9 +10,30 @@ function NewPost() {
   }
 
   function submitHandler(event) {
-    event.preventDefault();
-    // Todo: Handle the creation of new posts and send new post data to https://jsonplaceholder.typicode.com/posts (via a POST) request
+    event.preventDefault();  
+    setWaiting(true);
+  
+  let value = {
+    userId: 1,
+    id: post.length,
+    title: enteredTitle
   }
+
+  setWaiting(true)
+
+  fetch("https://jsonplaceholder.typicode.com/posts",{
+    method: "POST"
+  })
+  .then(Response=> Response.json())
+  .then(
+    posts => {setPost([...post,posts])
+    setWaiting(false)} 
+    
+  )
+  setEnteredTitle('')
+ }
+
+
 
   return (
     <form onSubmit={submitHandler} className={classes.form}>
@@ -22,6 +44,6 @@ function NewPost() {
       <button>Save</button>
     </form>
   );
-}
-
+  
+  }
 export default NewPost;
